@@ -1,0 +1,41 @@
+\documentclass [12pt] {article}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{courier}
+\usepackage[export]{adjustbox}
+\begin {document}
+\begin{spacing}{1.5}
+\noindent
+
+\begin {flushright}
+\textbf{COMP 5421 Project 4}\\
+\end {flushright}
+~\\
+\noindent
+\textbf{Website}\\ 
+N/A\\
+~\\
+\textbf{Method}\\
+1. Calibrate the lighting direction. $\vec{L} = 2\vec{N}(\vec{N}\cdot \vec{V})-\vec{V}$, where $\vec{L}$ is the lighting direction, $\vec{V}$ is viewing direction of camera which by default is set to be viewing from top, and $\vec{N}$ is surface normal which can be calculated based on the calibration object.\\
+~\\
+2. The raw calibration result for lighting direction is not very acceptable by the limit of sampling. Hence subsampling is preferred. One can reunion close light direction (and their associated images) by picking light direction on vertices of a icosahedron.\\
+~\\
+3. In the Lambertian model, $I = \rho \vec{N} \cdot \vec{L}$, the $\rho$ is also an unknown. In order to get rid of it, we can assign one image to be `denominator image', so that $I_{1}/I_{2} = \vec{N_{1}} \cdot \vec{L_{1}}/ \vec{N_{2}} \cdot \vec{L_{2}}$. The denominator image should contain least shadows and highlights. One can use average intensity over whole image to get a `best' image, or one can get `best' intensity for each pixel and merge them to be a denominator image.\\
+~\\
+4. Solve equation $I = \vec{N} \cdot \vec{L}$ by SVD. After dividing denominator image, one will get $I_{k}/I_{d} = \vec{N} \cdot \vec{L_{k}}/ \vec{N} \cdot \vec{L_{d}}$, where $I_{k}$ is intensity at certain pixel of $k^{th}$ image, $I_{d}$ is intensity at certain pixel of denominator image, $L_{k}$ is light direction for $k^{th}$ image and $L_{d}$ is light direction for denominator image. To solve $\vec{N}$ at each pixel, we write $\vec{N} = (x, y, z)$. and $\vec{L_{i}} = (L{_ix}, L_{iy}, L_{iz})$. Then we can get $$(L{_kx}-(I_{k}/I_{d}) L_{dx})x+ (L{_ky}-(I_{k}/I_{d}) L_{dy})y+ (L{_kz}-(I_{k}/I_{d}) L_{dz})z = 0$$ Then we let k varies in total numbers of sampling (skip denominator image). Then we get a huge matrix $M$ with each row as $(L{_kx}-(I_{k}/I_{d}) L_{dx}, L{_ky}-(I_{k}/I_{d}) L_{dy}, L{_kz}-(I_{k}/I_{d}) L_{dz})$. We apply Singular Value Decomposition(SVD) on this matrix, and the `V-vector' corresponding to  smallest $\sigma$ is the solution of surface normal. \\
+In Matlab, things are just as simple as
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
+\lstset{framextopmargin=50pt}
+ \begin{lstlisting}
+[~,~,V] = svd(A);
+sol = V(:,end)
+  \end{lstlisting}
+~\\
+5. Use MRF Graph cut to get a better result. Details refer to Tai-Pang Wu and Chi-Keung Tang, \textbf{Dense Photometric Stereo Using a Mirror Sphere and Graph Cut}, \emph{IEEE Computer Society Conference on Computer Vision and Pattern Recognition} (2005)\\
+~\\
+6. Reconstruct shape from Shape-From-Shapelets method. Details refer to Peter Kovesi, \textbf{Shapelets Correlated with Surface Normals Produce Surfaces}. \emph{IEEE International Conference on Computer Vision}. (2005) pp 994-1001. Toolbox from \url{http://www.csse.uwa.edu.au/~pk/Research/MatlabFns/}\\
+\end {spacing}
+\end {document}

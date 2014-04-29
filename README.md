@@ -1,4 +1,4 @@
-HKUST COMP 5421 Spring 2014 Computer Vision Project 3
+HKUST COMP 5421 Spring 2014 Computer Vision Project 4
 Shape from Shading
 ================
 

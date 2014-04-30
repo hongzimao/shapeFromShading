@@ -23,3 +23,7 @@ Load *lightvec.txt*
 <code>surfaceNormal = initialNormal(VarName1, VarName2, VarName3);</code> This will take around 1-2 minutes.
 
 <code>refineNormal = graphCutSurfaceNormal(surfaceNormal);</code> This will take quite a long time. 
+
+Use <code>lightImg = diffuseLight(surfaceNormal);</code> or <code>lightImg = diffuseLight(refineNormal);</code> to check N-L image result.
+
+Use <code>recsurf = shapeFromShapelets(surfaceNormal);</code> or <code>recsurf = shapeFromShapelets(refineNormal);</code> to check 3D reconstruction result.

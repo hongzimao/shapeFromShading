@@ -16,8 +16,10 @@ Shape from shapelet reconstruction is from Peter Kovesi, **Shapelets Correlated 
 
 Get started: Inside **preProcessData.m**, change the directory of input data, set the image size approaitely, and copy the light source direction file into code folder.
 
+Compile the mex file.
+
 Load *lightvec.txt*
 
-*surfaceNormal = initialNormal(VarName1, VarName2, VarName3);* This will take around 1-2 minutes.
+<code>surfaceNormal = initialNormal(VarName1, VarName2, VarName3);</code> This will take around 1-2 minutes.
 
-*refineNormal = graphCutSurfaceNormal(surfaceNormal);* This will take quite a long time. 
+<code>refineNormal = graphCutSurfaceNormal(surfaceNormal);</code> This will take quite a long time. 

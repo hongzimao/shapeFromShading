@@ -4,7 +4,7 @@ Shape from Shading
 
 The main approach and algorithm are summerized and descibed in **Note.pdf** inside *Note* folder. 
 
-The sample output results are in wiki page. 
+The sample output results are in **wiki** page. 
 
 Main algorithm is from Tai-Pang Wu and Chi-Keung Tang, **Dense Photometric Stereo Using a Mirror Sphere and Graph Cut**, *IEEE Computer Society Conference on Computer Vision and Pattern Recognition* (2005) pp 140-147.
 
